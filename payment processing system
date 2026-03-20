@@ -1,0 +1,60 @@
+interface PaymentMethod {
+    void processPayment(double amount);
+}
+
+// Credit Card Payment
+class CreditCardPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing Credit Card payment of ₹" + amount);
+    }
+}
+
+// PayPal Payment
+class PayPalPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing PayPal payment of ₹" + amount);
+    }
+}
+
+// UPI Payment
+class UPIPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing UPI payment of ₹" + amount);
+    }
+}
+
+// Service Class (DIP applied)
+class PaymentProcessor {
+    private PaymentMethod paymentMethod;
+
+    // Constructor Injection
+    public PaymentProcessor(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public void process(double amount) {
+        paymentMethod.processPayment(amount);
+    }
+}
+
+// Main Class
+class Main {
+    public static void main(String[] args) {
+
+        PaymentMethod credit = new CreditCardPayment();
+        PaymentMethod paypal = new PayPalPayment();
+        PaymentMethod upi = new UPIPayment();
+
+        PaymentProcessor processor1 = new PaymentProcessor(credit);
+        processor1.process(5000);
+
+        PaymentProcessor processor2 = new PaymentProcessor(paypal);
+        processor2.process(2500);
+
+        PaymentProcessor processor3 = new PaymentProcessor(upi);
+        processor3.process(1000);
+    }
+}
