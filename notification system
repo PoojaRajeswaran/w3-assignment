@@ -1,0 +1,50 @@
+interface EmailSender {
+    void sendEmail(String message);
+}
+
+interface SMSSender {
+    void sendSMS(String message);
+}
+
+interface PushNotificationSender {
+    void sendPushNotification(String message);
+}
+
+// Email மட்டும் handle பண்ணும் class (SRP)
+class EmailNotification implements EmailSender {
+    @Override
+    public void sendEmail(String message) {
+        System.out.println("Email sent: " + message);
+    }
+}
+
+// SMS மட்டும் handle பண்ணும் class
+class SMSNotification implements SMSSender {
+    @Override
+    public void sendSMS(String message) {
+        System.out.println("SMS sent: " + message);
+    }
+}
+
+// Push Notification மட்டும் handle பண்ணும் class
+class MobileAppNotification implements PushNotificationSender {
+    @Override
+    public void sendPushNotification(String message) {
+        System.out.println("Push Notification sent: " + message);
+    }
+}
+
+// Main Class
+class Main {
+    public static void main(String[] args) {
+
+        EmailSender email = new EmailNotification();
+        email.sendEmail("Welcome via Email!");
+
+        SMSSender sms = new SMSNotification();
+        sms.sendSMS("OTP sent via SMS!");
+
+        PushNotificationSender push = new MobileAppNotification();
+        push.sendPushNotification("New alert on your mobile app!");
+    }
+}
